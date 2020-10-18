@@ -1,10 +1,11 @@
 package ru.litvinov.javapool.model.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "emails")
-public class Emails {
+public class Emails implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     @Column(name = "email")
@@ -39,5 +40,13 @@ public class Emails {
 
     public void setStudents(Students students) {
         this.students = students;
+    }
+
+    @Override
+    public String toString() {
+        return "Emails{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                '}';
     }
 }

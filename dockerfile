@@ -2,7 +2,8 @@ FROM openjdk:8-jdk-alpine
 #за основу взята 8 версия джавы
 #ARG JAR_FILE=target/*.jar
 #COPY ${JAR_FILE} app.jar
-COPY target/*.jar app.jar
+
+COPY target/TestCaseOne-jar-with-dependencies.jar app.jar
 ENTRYPOINT ["java","-jar","/app.jar"]
 
 #запуск

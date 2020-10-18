@@ -4,6 +4,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import ru.litvinov.javapool.config.ConfigClass;
 import ru.litvinov.javapool.model.dao.Dao;
 
+import java.net.InetAddress;
 import java.util.List;
 
 public class Main {
@@ -35,6 +36,9 @@ public class Main {
         }
         */
 
+        ping("172.17.0.1");
+        ping("172.17.0.2");
+        ping("127.0.0.1");
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ConfigClass.class);
 
         Dao dao = context.getBean("daoImpl", Dao.class);
@@ -42,5 +46,15 @@ public class Main {
         System.out.println(l);
     }
 
+    public static void ping(String ip){
+        try{
+            InetAddress address = InetAddress.getByName(ip);
+            boolean reachable = address.isReachable(10000);
 
+            System.out.println("ip " + ip + "is reachable");
+        } catch (Exception e){
+
+            System.out.println("ip " + ip + "is not reachable");
+        }
+    }
 }

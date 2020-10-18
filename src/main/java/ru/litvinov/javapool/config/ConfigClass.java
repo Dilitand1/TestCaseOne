@@ -20,7 +20,8 @@ public class ConfigClass {
     public DataSource dataSource() throws ClassNotFoundException {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:postgresql://127.0.0.1:5432/test");
+        //dataSource.setUrl("jdbc:postgresql://127.0.0.1:5432/test");
+        dataSource.setUrl("jdbc:postgresql://172.17.0.2:5432/test");
         dataSource.setUsername("postgres");
         dataSource.setPassword("password");
         return dataSource;

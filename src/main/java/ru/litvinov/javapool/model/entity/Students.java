@@ -1,12 +1,13 @@
 package ru.litvinov.javapool.model.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "students")
-public class Students {
+public class Students implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
@@ -16,7 +17,7 @@ public class Students {
     String course;
 
     @OneToMany(mappedBy = "students", fetch = FetchType.EAGER)
-    List<Emails> list = new ArrayList<>();
+    List<Emails> emails = new ArrayList<>();
 
     public Students(){
 
@@ -47,10 +48,19 @@ public class Students {
     }
 
     public List<Emails> getList() {
-        return list;
+        return emails;
     }
 
     public void setList(List<Emails> list) {
-        this.list = list;
+        this.emails = list;
+    }
+
+    @Override
+    public String toString() {
+        return "Students {" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", accountList=" + emails +
+                '}';
     }
 }
