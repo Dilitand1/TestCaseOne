@@ -1,29 +1,44 @@
 package ru.litvinov.javapool.config;
 
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import ru.litvinov.javapool.utils.Ping;
 
 import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
 @ComponentScan("ru.litvinov.javapool.model.dao")
+@PropertySource("app.properties")
 @EnableTransactionManagement
 public class ConfigClass {
+
+    @Autowired
+    Environment environment;
+
     @Bean
-    public DataSource dataSource() throws ClassNotFoundException {
+    public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
-        //dataSource.setUrl("jdbc:postgresql://127.0.0.1:5432/test");
-        dataSource.setUrl("jdbc:postgresql://172.17.0.2:5432/test");
-        dataSource.setUsername("postgres");
-        dataSource.setPassword("password");
+        StringBuilder url = new StringBuilder("jdbc:postgresql://");
+        /*if (Ping.ping(environment.getProperty("url.localhostip")))
+        {
+            url.append(environment.getProperty("url.localhostip"));
+        } else {
+            url.append(environment.getProperty("url.containterip"));
+        }*/
+        dataSource.setUrl(url.append(environment.getProperty("url.containterip")).append("/").append(environment.getProperty("url.database")).toString());
+        dataSource.setUsername(environment.getProperty("postgres.username2"));
+        dataSource.setPassword(environment.getProperty("postgres.password2"));
         return dataSource;
     }
 

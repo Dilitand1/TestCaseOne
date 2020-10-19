@@ -4,12 +4,19 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import ru.litvinov.javapool.config.ConfigClass;
 import ru.litvinov.javapool.model.dao.Dao;
 
-import java.net.InetAddress;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
+        Thread.sleep(3000);
         System.out.println("main");
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ConfigClass.class);
+        Dao dao = context.getBean("daoImpl", Dao.class);
+        List l = dao.getAllStudents();
+        System.out.println(l);
+    }
+
+    public static void tempMethod(){
         /*
         String sql = "Select * from ppl where 1=1 and id = ?";
         try (Connection conn = DriverManager.getConnection(
@@ -34,27 +41,8 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        */
-
-        ping("172.17.0.1");
-        ping("172.17.0.2");
-        ping("127.0.0.1");
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ConfigClass.class);
-
-        Dao dao = context.getBean("daoImpl", Dao.class);
-        List l = dao.getAllStudents();
-        System.out.println(l);
+         */
     }
 
-    public static void ping(String ip){
-        try{
-            InetAddress address = InetAddress.getByName(ip);
-            boolean reachable = address.isReachable(10000);
 
-            System.out.println("ip " + ip + "is reachable");
-        } catch (Exception e){
-
-            System.out.println("ip " + ip + "is not reachable");
-        }
-    }
 }
