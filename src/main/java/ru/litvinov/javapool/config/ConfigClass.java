@@ -36,7 +36,7 @@ public class ConfigClass {
         } else {
             url.append(environment.getProperty("url.containterip"));
         }*/
-        dataSource.setUrl(url.append(environment.getProperty("url.containterip")).append("/").append(environment.getProperty("url.database")).toString());
+        dataSource.setUrl(url.append(environment.getProperty("url.containterip2")).append("/").append(environment.getProperty("url.database")).toString());
         dataSource.setUsername(environment.getProperty("postgres.username2"));
         dataSource.setPassword(environment.getProperty("postgres.password2"));
         return dataSource;
