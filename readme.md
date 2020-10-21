@@ -1,4 +1,7 @@
-Вариант номер 1:
+Вариант №1 через композ:
+docker-compose up --build
+
+Вариант номер 2 вручную:
 0.Компилим:
 mvn clean package
 
@@ -13,9 +16,6 @@ docker run --name postgres-0 -e POSTGRES_PASSWORD=password -d -p 5432:5432 testd
 3.Запускаем наше приложение и связываем его с нашей бд:
 docker build -t myapp .
 docker run --rm -p 8888:8888 --name myapp-0 --link postgres-0:postgres-0 myapp
-
-Вариант №2:
-docker-compose up --build
 
 подсказки:
 docker pull postgres:alpine

@@ -1,6 +1,6 @@
 FROM postgres:12-alpine
 COPY src/main/resources/*.sql /docker-entrypoint-initdb.d/
-
+EXPOSE 5432
 
 #docker build -f Dockerfile_postgres -t testdoc .
 #docker run --name postgres-0 -e POSTGRES_PASSWORD=password -d -p 5432:5432 testdoc
